@@ -1,6 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
-// #include <omp.h>
+#include <time.h>
 
 int main(){
     // ---- input and malloc A, F ----
@@ -19,19 +19,19 @@ int main(){
 
     int NR = NA - NF + 1;
     int *R = calloc(NR, sizeof(int));
-    // double start = omp_get_wtime();
+    // clock_t start = clock();
     for (int i = 0; i <= NA - NF; i++) {
         for (int j = 0; j < NF; j++) {
             R[i] += A[i + j] * F[NF - j - 1];
         }
     }
-    // double end = omp_get_wtime();
+    // clock_t end = clock();
 
     for (int i = 0; i < NR; i++) {
         printf("%d\n", R[i]);
     }
 
-    // printf("sequential time : %f\n seconds", end - start);
+    // printf("sequential time : %f seconds\n", (double)(end - start)/CLOCKS_PER_SEC);
 
     // ---- free memory ----
     free(R);
